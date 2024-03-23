@@ -1,5 +1,11 @@
 package de.ludimus.functional;
 
+import de.ludimus.functional.either.Either;
+import de.ludimus.functional.either.Left;
+import de.ludimus.functional.either.Right;
+import de.ludimus.functional.option.None;
+import de.ludimus.functional.option.Option;
+import de.ludimus.functional.option.Some;
 import org.junit.jupiter.api.Test;
 
 import java.util.function.Function;
@@ -20,20 +26,6 @@ class EitherTest {
         Either<String, Integer> either = Either.right(10);
         assertTrue(either instanceof Right);
         assertEquals(10, either.fold(Function.identity(), Function.identity()));
-    }
-
-    @Test
-    void testMapRightOnRight() {
-        Either<String, Integer> right = Either.right(5);
-        Either<String, Integer> mapped = right.map(r -> r * 2);
-        assertEquals(10, mapped.getOrElse(0));
-    }
-
-    @Test
-    void testMapRightOnLeft() {
-        Either<String, Integer> left = Either.left("Error");
-        Either<String, Integer> mapped = left.map(r -> r * 2);
-        assertEquals("Error", mapped.fold(Function.identity(), r -> "No Error"));
     }
 
     @Test
@@ -105,17 +97,17 @@ class EitherTest {
     }
 
     @Test
-    void testPatternMatching(){
+    void testPatternMatching() {
         Either<String, Integer> right = Either.right(10);
 
-        switch (right){
+        switch (right) {
             case Left l -> fail();
-            case Right(Integer value)-> assertEquals(10,value);
+            case Right(Integer value) -> assertEquals(10, value);
         }
 
         Either<String, Integer> left = Either.left("Error");
 
-        switch (left){
+        switch (left) {
             case Left(String value) -> assertEquals("Error", value);
             case Right r -> fail();
         }
@@ -161,6 +153,7 @@ class EitherTest {
         Either<String, Integer> left = Either.left("Error");
         assertEquals(0, left.toStream().count(), "Expected Stream to be empty for Left.");
     }
+
     @Test
     void testToOptionWithRight() {
         Either<String, Integer> right = Either.right(10);

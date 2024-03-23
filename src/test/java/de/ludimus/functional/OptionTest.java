@@ -1,5 +1,8 @@
 package de.ludimus.functional;
 
+import de.ludimus.functional.option.None;
+import de.ludimus.functional.option.Option;
+import de.ludimus.functional.option.Some;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
